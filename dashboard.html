@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard · Student Library Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a class="brand" href="dashboard.html">
+        <span class="mark">SL</span>
+        Stacks &amp; Shelves
+        <span class="eyebrow">Library Portal</span>
+    </a>
+    <button class="logout-btn" id="logoutBtn">Log out</button>
+</header>
+
+<main class="dash-wrap">
+    <div class="dash-head">
+        <div>
+            <span class="eyebrow">Welcome back</span>
+            <h1 id="welcomeName">Student</h1>
+        </div>
+    </div>
+
+    <div class="search-row">
+        <input type="text" id="searchInput" placeholder="Search by title, author, or category…">
+    </div>
+
+    <div class="catalog-grid" id="catalogGrid">
+        <div class="empty-state">Loading catalog…</div>
+    </div>
+</main>
+
+<script src="js/dashboard.js"></script>
+</body>
+</html>

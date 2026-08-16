@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up · Student Library Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a class="brand" href="login.html">
+        <span class="mark">SL</span>
+        Stacks &amp; Shelves
+        <span class="eyebrow">Library Portal</span>
+    </a>
+</header>
+
+<div class="auth-wrap">
+    <aside class="auth-side">
+        <div>
+            <h1>Get your card. Start borrowing today.</h1>
+            <p>Registration takes under a minute. Once you're in, the whole catalog is searchable and ready to check out.</p>
+            <div class="catalog-stat">
+                <div><span class="num">01</span><span class="label">Register</span></div>
+                <div><span class="num">02</span><span class="label">Log in</span></div>
+                <div><span class="num">03</span><span class="label">Borrow</span></div>
+            </div>
+        </div>
+        <p class="quote">"Books are a uniquely portable magic."</p>
+    </aside>
+
+    <main class="auth-main">
+        <div class="card">
+            <span class="stamp">New Card</span>
+            <p class="card-eyebrow">First visit</p>
+            <h2>Create account</h2>
+            <p class="sub">Register with your student details to get a library card.</p>
+
+            <div id="signupMsg" class="msg"></div>
+
+            <form id="signupForm">
+                <div class="field">
+                    <label for="fullName">Full name</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="Jordan Alvarez" required>
+                </div>
+                <div class="field">
+                    <label for="rollNumber">Roll number</label>
+                    <input type="text" id="rollNumber" name="rollNumber" placeholder="e.g. CS21B045" required>
+                </div>
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="you@college.edu" required>
+                </div>
+                <div class="field">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="At least 6 characters" required minlength="6">
+                </div>
+                <button class="btn-primary" type="submit">Create account</button>
+            </form>
+
+            <p class="switch-link">Already registered? <a href="login.html">Log in</a></p>
+        </div>
+    </main>
+</div>
+
+<script src="js/auth.js"></script>
+</body>
+</html>
