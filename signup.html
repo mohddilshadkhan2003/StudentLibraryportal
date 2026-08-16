@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up · Student Library Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a class="brand" href="login.html">
+        <span class="mark">SL</span>
+        <span class="brand-text">
+            Stacks &amp; Shelves
+            <span class="eyebrow">Library Portal</span>
+        </span>
+    </a>
+</header>
+
+<div class="auth-wrap">
+    <aside class="auth-side">
+        <div>
+            <span class="side-kicker">New member</span>
+            <h1 class="fade-up">Get your card. Start borrowing today.</h1>
+            <p class="lead fade-up" style="animation-delay:0.08s">Registration takes under a minute. Once you're in, the whole catalog is searchable and ready to check out.</p>
+
+            <ul class="feature-list fade-up" style="animation-delay:0.14s">
+                <li>
+                    <span class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 11.5L13 4.5" stroke="#D9BE7C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    Free for every enrolled student
+                </li>
+                <li>
+                    <span class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 11.5L13 4.5" stroke="#D9BE7C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    Passwords are hashed, never stored in plain text
+                </li>
+                <li>
+                    <span class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 11.5L13 4.5" stroke="#D9BE7C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    One account, borrow across every category
+                </li>
+            </ul>
+
+            <div class="catalog-stat fade-up" style="animation-delay:0.2s">
+                <div><span class="num">01</span><span class="label">Register</span></div>
+                <div><span class="num">02</span><span class="label">Log in</span></div>
+                <div><span class="num">03</span><span class="label">Borrow</span></div>
+            </div>
+        </div>
+        <p class="quote">"Books are a uniquely portable magic."</p>
+    </aside>
+
+    <main class="auth-main">
+        <div class="card fade-up">
+            <span class="stamp">New Card</span>
+            <p class="card-eyebrow">First visit</p>
+            <h2>Create account</h2>
+            <p class="sub">Register with your student details to get a library card.</p>
+
+            <div id="signupMsg" class="msg"></div>
+
+            <form id="signupForm">
+                <div class="field">
+                    <label for="fullName">Full name</label>
+                    <div class="field-input-wrap">
+                        <input type="text" id="fullName" name="fullName" placeholder="Jordan Alvarez" required>
+                    </div>
+                </div>
+                <div class="field-row">
+                    <div class="field">
+                        <label for="rollNumber">Roll number</label>
+                        <div class="field-input-wrap">
+                            <input type="text" id="rollNumber" name="rollNumber" placeholder="CS21B045" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <div class="field-input-wrap">
+                            <input type="email" id="email" name="email" placeholder="you@college.edu" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="password">Password</label>
+                    <div class="field-input-wrap">
+                        <input type="password" id="password" name="password" placeholder="At least 6 characters" required minlength="6">
+                        <button type="button" class="toggle-pw" data-target="password">Show</button>
+                    </div>
+                </div>
+                <button class="btn-primary" type="submit">Create account</button>
+            </form>
+
+            <p class="switch-link">Already registered? <a href="login.html">Log in</a></p>
+        </div>
+    </main>
+</div>
+
+<script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard · Student Library Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a class="brand" href="dashboard.html">
+        <span class="mark">SL</span>
+        <span class="brand-text">
+            Stacks &amp; Shelves
+            <span class="eyebrow">Library Portal</span>
+        </span>
+    </a>
+    <div class="topbar-right">
+        <div class="profile-chip">
+            <span class="avatar" id="avatarInitial">S</span>
+            <span class="who">
+                <span class="name" id="welcomeName">Student</span>
+                <span class="roll" id="welcomeRoll">—</span>
+            </span>
+        </div>
+        <button class="logout-btn" id="logoutBtn">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M10.5 11.5L14 8l-3.5-3.5M14 8H6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Log out
+        </button>
+    </div>
+</header>
+
+<main class="dash-wrap">
+    <aside class="sidebar">
+        <div class="sidebar-block">
+            <div class="sb-title">Browse by category</div>
+            <ul class="cat-list" id="categoryList">
+                <li class="cat-item active" data-cat="">All titles <span class="count" id="countAll">–</span></li>
+            </ul>
+        </div>
+
+        <div class="sidebar-block">
+            <div class="sb-title">Catalog snapshot</div>
+            <div class="stat-mini">
+                <div class="stat-mini-row"><span class="v" id="statTotal">–</span><span class="l">total titles</span></div>
+                <div class="stat-mini-row"><span class="v" id="statAvailable">–</span><span class="l">available now</span></div>
+                <div class="stat-mini-row"><span class="v" id="statCategories">–</span><span class="l">categories</span></div>
+            </div>
+        </div>
+    </aside>
+
+    <section class="dash-main">
+        <div class="dash-head">
+            <div>
+                <span class="eyebrow">Welcome back</span>
+                <h1 id="dashGreeting">Student</h1>
+            </div>
+        </div>
+
+        <div class="search-row">
+            <svg viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5.2" stroke="currentColor" stroke-width="1.4"/><path d="M11 11L14.5 14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+            <input type="text" id="searchInput" placeholder="Search by title, author, or category…">
+        </div>
+
+        <div class="chip-row" id="chipRow"></div>
+
+        <div class="results-count" id="resultsCount"></div>
+
+        <div class="catalog-grid" id="catalogGrid">
+            <div class="skeleton"></div>
+            <div class="skeleton"></div>
+            <div class="skeleton"></div>
+        </div>
+    </section>
+</main>
+
+<script src="js/dashboard.js"></script>
+</body>
+</html>

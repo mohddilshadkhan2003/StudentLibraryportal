@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log In · Student Library Portal</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a class="brand" href="login.html">
+        <span class="mark">SL</span>
+        <span class="brand-text">
+            Stacks &amp; Shelves
+            <span class="eyebrow">Library Portal</span>
+        </span>
+    </a>
+</header>
+
+<div class="auth-wrap">
+    <aside class="auth-side">
+        <div>
+            <span class="side-kicker">Member sign in</span>
+            <h1 class="fade-up">Every book you need, one card away.</h1>
+            <p class="lead fade-up" style="animation-delay:0.08s">Sign in with your roll number to search the catalog, check out titles, and keep track of what's due back.</p>
+
+            <ul class="feature-list fade-up" style="animation-delay:0.14s">
+                <li>
+                    <span class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 11.5L13 4.5" stroke="#D9BE7C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    Search the full catalog by title, author, or subject
+                </li>
+                <li>
+                    <span class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 11.5L13 4.5" stroke="#D9BE7C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    Check out available copies in one tap
+                </li>
+                <li>
+                    <span class="tick"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 11.5L13 4.5" stroke="#D9BE7C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    14-day loan period on every title
+                </li>
+            </ul>
+
+            <div class="catalog-stat fade-up" style="animation-delay:0.2s">
+                <div><span class="num">6</span><span class="label">Titles catalogued</span></div>
+                <div><span class="num">14</span><span class="label">Day loan period</span></div>
+                <div><span class="num">24/7</span><span class="label">Portal access</span></div>
+            </div>
+        </div>
+        <p class="quote">"A library is the delivery room for the birth of ideas."</p>
+    </aside>
+
+    <main class="auth-main">
+        <div class="card fade-up">
+            <span class="stamp">Member Access</span>
+            <p class="card-eyebrow">Return visit</p>
+            <h2>Log in</h2>
+            <p class="sub">Enter your roll number and password to continue.</p>
+
+            <div id="loginMsg" class="msg"></div>
+
+            <form id="loginForm">
+                <div class="field">
+                    <label for="rollNumber">Roll number</label>
+                    <div class="field-input-wrap">
+                        <input type="text" id="rollNumber" name="rollNumber" placeholder="e.g. CS21B045" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="password">Password</label>
+                    <div class="field-input-wrap">
+                        <input type="password" id="password" name="password" placeholder="••••••••" required>
+                        <button type="button" class="toggle-pw" data-target="password">Show</button>
+                    </div>
+                </div>
+                <button class="btn-primary" type="submit">Log in</button>
+            </form>
+
+            <p class="switch-link">New here? <a href="signup.html">Create an account</a></p>
+        </div>
+    </main>
+</div>
+
+<script src="js/auth.js"></script>
+</body>
+</html>
