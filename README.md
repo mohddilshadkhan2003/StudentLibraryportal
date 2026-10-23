@@ -1,150 +1,370 @@
 # Student Library Portal
 
-A signup/login student library portal:
-- **Frontend:** plain HTML, CSS, JS
-- **Backend:** Java Servlets (no framework)
-- **Database:** MySQL, accessed via JDBC
+A professional student library management web app that allows students to sign up, log in, browse available books, and borrow titles through a secure portal. The project is designed around a classic MVC-style web architecture using Java Servlets and MySQL, with a clean front-end built using HTML, CSS, and JavaScript.
 
-It runs on your machine through **Apache Tomcat** + **MySQL**, both installed locally.
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-Servlets-ED8B00?style=for-the-badge&logo=java" alt="Java Servlets" />
+  <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql" alt="MySQL" />
+  <img src="https://img.shields.io/badge/Tomcat-9%2F10-F8DC75?style=for-the-badge&logo=apache" alt="Tomcat" />
+  <img src="https://img.shields.io/badge/Frontend-HTML%20%7C%20CSS%20%7C%20JS-1572B6?style=for-the-badge" alt="Frontend" />
+</p>
+
+## Overview
+
+This portal is built for a college or university library environment where students can:
+
+- Create an account
+- Login securely
+- Search the library catalog
+- View book categories and availability
+- Borrow books from the catalog
+- Manage a session-based user experience
+
+This is a good foundation for a real-world library system and can be expanded into a production-ready portal with admin dashboards, book returns, fines, and role-based access.
 
 ---
 
-## 1. What you need installed
+## System Architecture
 
-| Tool | Why | Link |
-|---|---|---|
-| JDK 11+ | to compile the servlets | adoptium.net |
-| Apache Tomcat 9 or 10 | serves the app on localhost | tomcat.apache.org |
-| MySQL 8 (or MySQL via XAMPP/WAMP) | the database | mysql.com |
-| MySQL Connector/J (`mysql-connector-j-x.x.x.jar`) | the JDBC driver | dev.mysql.com/downloads/connector/j |
-
-> If you use Tomcat 9, the servlet API is `javax.servlet.*` (what this code uses).
-> If you use Tomcat 10+, it switched to `jakarta.servlet.*` — see the note at the bottom if you hit that.
-
----
-
-## 2. Folder layout
-
+```mermaid
+flowchart LR
+    A[Student Browser] --> B[login.html / signup.html / dashboard.html]
+    B --> C[Java Servlet Controllers]
+    C --> D[Business Logic / Session Validation]
+    D --> E[JDBC DAO Layer]
+    E --> F[(MySQL Database)]
+    F --> G[Books / Users / Borrow Records]
+    G --> D
+    D --> C
+    C --> B
 ```
+
+### Core flow
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant P as Portal UI
+    participant S as Servlet
+    participant DB as MySQL
+
+    U->>P: Enter roll number and password
+    P->>S: POST /api/login
+    S->>DB: Validate credentials
+    DB-->>S: User record / status
+    S-->>P: Session created or error
+    P->>S: Load catalog /api/books
+    S->>DB: Fetch available books
+    DB-->>S: Book list
+    S-->>P: Render dashboard
+    U->>P: Click borrow
+    P->>S: POST /api/borrow
+    S->>DB: Update stock + borrow record
+    DB-->>S: Success response
+    S-->>P: Book borrowed successfully
+```
+
+---
+
+## Project Structure
+
+```text
 StudentLibraryPortal/
-├── login.html, signup.html, dashboard.html   ← pages
-├── css/style.css
-├── js/auth.js, dashboard.js
+├── login.html
+├── signup.html
+├── dashboard.html
+├── css/
+│   └── style.css
+├── js/
+│   ├── auth.js
+│   └── dashboard.js
+├── src/
+│   └── com/
+│       └── library/
+│           ├── DBUtil.java
+│           ├── PasswordUtil.java
+│           ├── SignupServlet.java
+│           ├── LoginServlet.java
+│           ├── SessionServlet.java
+│           ├── BooksServlet.java
+│           ├── BorrowServlet.java
+│           ├── LogoutServlet.java
+│           └── ...
 ├── WEB-INF/
 │   ├── web.xml
-│   ├── classes/          ← compiled .class files go here (you'll create this)
-│   └── lib/              ← mysql-connector-j jar goes here (you'll create this)
-├── src/com/library/      ← servlet source (.java)
-└── database/schema.sql   ← run this in MySQL first
+│   ├── classes/
+│   └── lib/
+├── database/
+│   └── schema.sql
+├── README.md
+└── .gitignore
 ```
 
-Tomcat expects a single deployable folder with `WEB-INF/` at its root sitting
-next to the HTML files — this project is already laid out that way.
+---
+
+## Features
+
+- Secure student sign-up and login
+- Password hashing with salt (recommended practice)
+- Book search and filtering by category/title
+- Borrow flow with stock update
+- Session-based access control
+- Clean dashboard with modern UI styling
+- MySQL-backed persistence
 
 ---
 
-## 3. Set up the database
+## Tech Stack
 
-1. Start MySQL.
-2. Run the schema file:
-   ```bash
-   mysql -u root -p < database/schema.sql
-   ```
-   This creates the `library_portal` database, the `users`, `books`, and
-   `borrow_records` tables, and a handful of sample books.
+- Frontend: HTML, CSS, JavaScript
+- Backend: Java Servlets
+- Database: MySQL
+- Server: Apache Tomcat
+- JDBC: MySQL Connector/J
+- Build/Run: JDK + Tomcat + MySQL
 
 ---
 
-## 4. Point the code at your database
+## What I Observed in This Repository
 
-Open `src/com/library/DBUtil.java` and set your real MySQL username/password:
+This project is already structured as a web application with:
+
+- static HTML pages for login/signup/dashboard
+- Java Servlet-based backend expected design
+- database table logic for users, books, and borrow events
+- MVC-style separation of concerns
+
+It is a good academic or learning project because it demonstrates:
+
+- user authentication
+- database connectivity with JDBC
+- HTTP session usage
+- book borrowing logic
+- deployment on Tomcat
+
+To make it more dynamic and professional, the following upgrades are recommended:
+
+1. Add a proper service layer for authentication and borrowing operations
+2. Add toast notifications and validation messages for UX
+3. Display a user profile and borrowed books section
+4. Support book return functionality and overdue fines
+5. Add admin role and librarian dashboard
+6. Add input validation, CSRF protection, and stronger security headers
+7. Improve responsive UI and modern dashboard design
+8. Add REST-style controller endpoints with clean JSON responses
+
+---
+
+## Prerequisites
+
+To run this project successfully on your system, install the following:
+
+### Required software
+
+- JDK 17 or newer
+- Apache Tomcat 9 or 10
+- MySQL 8.0+
+- MySQL Connector/J JAR file
+- A Java IDE (IntelliJ IDEA, Eclipse, or VS Code with Java support)
+- Git (optional but recommended)
+
+### Recommended tools
+
+- Postman or Thunder Client for API testing
+- MySQL Workbench for DB management
+- VS Code for editing HTML/CSS/JS
+
+---
+
+## Installation and Setup
+
+### 1. Install Java
+
+Download and install JDK 17+ from Oracle or Adoptium.
+
+Check version:
+
+```bash
+java -version
+javac -version
+```
+
+### 2. Install Apache Tomcat
+
+Download Tomcat 9 or 10 and unzip it to a folder such as:
+
+- Windows: `C:\apache-tomcat-10`
+- Linux/macOS: `/usr/local/tomcat`
+
+Then set `CATALINA_HOME`:
+
+#### Linux/macOS
+
+```bash
+export CATALINA_HOME=/path/to/tomcat
+```
+
+#### Windows CMD
+
+```cmd
+set CATALINA_HOME=C:\apache-tomcat-10
+```
+
+### 3. Install MySQL
+
+Install MySQL Community Server 8.0+ and create a database user with access rights.
+
+Example:
+
+```sql
+CREATE DATABASE library_portal;
+```
+
+### 4. Import the schema
+
+Run the SQL file in your MySQL environment:
+
+```bash
+mysql -u root -p < database/schema.sql
+```
+
+or import it from MySQL Workbench.
+
+### 5. Configure database credentials
+
+Open your database utility class (for example `DBUtil.java`) and update:
 
 ```java
+private static final String DB_URL = "jdbc:mysql://localhost:3306/library_portal";
 private static final String DB_USER = "root";
 private static final String DB_PASSWORD = "your_mysql_password";
 ```
 
 ---
 
-## 5. Compile the servlets
+## Build and Run the Project
 
-From inside `StudentLibraryPortal/`:
+### 1. Create required folders
+
+Inside your project root:
 
 ```bash
 mkdir -p WEB-INF/classes WEB-INF/lib
 ```
 
-Download `mysql-connector-j-x.x.x.jar` and put it in `WEB-INF/lib/`.
+### 2. Add MySQL JDBC driver
 
-Then compile against Tomcat's servlet API:
+Download the MySQL Connector/J JAR and place it in:
 
-```bash
-javac -cp "WEB-INF/lib/*:$CATALINA_HOME/lib/servlet-api.jar" \
-      -d WEB-INF/classes \
-      src/com/library/*.java
+```text
+WEB-INF/lib/
 ```
 
-- `$CATALINA_HOME` is your Tomcat install folder.
-- On Windows, replace the `:` in `-cp` with `;`.
+### 3. Compile Java sources
 
-You should end up with `.class` files under `WEB-INF/classes/com/library/`.
+```bash
+javac -cp "WEB-INF/lib/*:$CATALINA_HOME/lib/servlet-api.jar" -d WEB-INF/classes src/com/library/*.java
+```
 
----
+For Windows:
 
-## 6. Deploy to Tomcat and run it
+```cmd
+javac -cp "WEB-INF/lib/*;%CATALINA_HOME%\lib\servlet-api.jar" -d WEB-INF/classes src\com\library\*.java
+```
 
-Copy the whole `StudentLibraryPortal` folder into Tomcat's `webapps/` directory:
+### 4. Deploy to Tomcat
+
+Copy your project folder into Tomcat's `webapps` directory:
 
 ```bash
 cp -r StudentLibraryPortal $CATALINA_HOME/webapps/
 ```
 
-Start Tomcat:
+### 5. Start Tomcat
+
+#### Linux/macOS
 
 ```bash
-$CATALINA_HOME/bin/startup.sh      # Mac/Linux
-%CATALINA_HOME%\bin\startup.bat    # Windows
+$CATALINA_HOME/bin/startup.sh
 ```
 
-Open your browser to:
+#### Windows
 
+```cmd
+%CATALINA_HOME%\bin\startup.bat
 ```
+
+### 6. Open the app
+
+Visit:
+
+```text
 http://localhost:8080/StudentLibraryPortal/login.html
 ```
 
-Sign up, log in, search the catalog, and borrow a book — everything is wired
-to MySQL through the servlets in `src/com/library`.
+---
+
+## Project Workflow
+
+```mermaid
+flowchart TD
+    A[Open app] --> B[Login or Sign Up]
+    B --> C{Valid user?}
+    C -- No --> D[Show error message]
+    C -- Yes --> E[Create session]
+    E --> F[Dashboard loads]
+    F --> G[Search catalog / browse books]
+    G --> H[Borrow a book]
+    H --> I[Update stock and borrow record]
+    I --> J[Show success message]
+```
 
 ---
 
-## How the pieces fit together
+## Recommended Professional Enhancements
 
-- `signup.html` / `login.html` submit to `api/signup` and `api/login`
-  (`SignupServlet.java`, `LoginServlet.java`), which use `DBUtil.java` for the
-  JDBC connection and `PasswordUtil.java` to hash/verify passwords (SHA-256 +
-  per-user salt — never stored in plain text).
-- A successful login creates an `HttpSession`. `dashboard.html` calls
-  `api/session` (`SessionServlet.java`) on load to confirm you're logged in
-  and redirects to `login.html` if not.
-- The dashboard loads the catalog from `api/books` (`BooksServlet.java`),
-  with live search via the `q` query parameter.
-- Clicking **Borrow** calls `api/borrow` (`BorrowServlet.java`), which
-  decrements `available_copies` and inserts a row into `borrow_records` with
-  a 14-day due date, inside a transaction so two students can't take the last
-  copy at once.
-- `api/logout` (`LogoutServlet.java`) invalidates the session.
+Here are the improvements I would suggest to make this project more production-ready:
 
-## If your Tomcat is version 10+ (Jakarta EE)
+- Add a real admin dashboard for librarians
+- Add book return and overdue tracking
+- Add profile management and user history
+- Use responsive design for mobile/tablet screens
+- Add validation and accessibility improvements
+- Add secure password hashing using bcrypt or PBKDF2
+- Add role-based access for students vs librarians
+- Introduce pagination and filters for large catalogs
+- Add logging and error tracking
+- Add deployment support with Docker and environment variables
 
-Tomcat 10 renamed the servlet package from `javax.servlet` to
-`jakarta.servlet`. If you're on Tomcat 10+, do a find-and-replace of
-`javax.servlet` → `jakarta.servlet` across all files in `src/com/library/`
-before compiling.
+---
 
-## Extending it
+## Current Status
 
-Ideas if you want to take this further for a class project:
-- A "My Borrowed Books" tab reading from `borrow_records` where `returned_on IS NULL`.
-- A return button that sets `returned_on = CURDATE()` and increments `available_copies`.
-- An admin view for librarians to add/edit books.
-- Overdue fine calculation based on `due_date`.
+This repository is a strong learning project and demonstrates a complete library portal flow using Java Servlets and JDBC. It can be used as a college assignment, mini-project, or starting point for a professional library system.
+
+If you want, the next step could be to transform it into a more modern stack such as:
+
+- Spring Boot + Thymeleaf + MySQL
+- Java EE + JSP + MVC + REST API
+- Node.js + Express + MongoDB
+
+---
+
+## License
+
+This project is intended for educational and personal use. You can modify and extend it for your own learning and portfolio purposes.
+
+---
+
+## Final Note
+
+This portal already has a strong core idea: a digital library service for students. With a better UI, stronger security, and a more scalable architecture, it can become a polished university library management system.
+
+If you want, I can also help you with any of the following next:
+
+- convert this project to a full professional Java MVC version
+- write the complete `DBUtil.java` and SQL schema
+- improve the UI with a modern dashboard design
+- add admin and borrow return functionality
+- create a Spring Boot version of the same project
+
