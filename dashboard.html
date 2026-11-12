@@ -1,80 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard · Student Library Portal</title>
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard · Student Library Portal</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
 
-<header class="topbar">
-    <a class="brand" href="dashboard.html">
-        <span class="mark">SL</span>
-        <span class="brand-text">
-            Stacks &amp; Shelves
-            <span class="eyebrow">Library Portal</span>
-        </span>
-    </a>
-    <div class="topbar-right">
-        <div class="profile-chip">
-            <span class="avatar" id="avatarInitial">S</span>
-            <span class="who">
-                <span class="name" id="welcomeName">Student</span>
-                <span class="roll" id="welcomeRoll">—</span>
+    <header class="topbar">
+        <a class="brand" href="dashboard.html">
+            <span class="mark">SL</span>
+            <span class="brand-text">
+                Stacks &amp; Shelves
+                <span class="eyebrow">Library Portal</span>
             </span>
-        </div>
-        <button class="logout-btn" id="logoutBtn">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M10.5 11.5L14 8l-3.5-3.5M14 8H6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Log out
-        </button>
-    </div>
-</header>
-
-<main class="dash-wrap">
-    <aside class="sidebar">
-        <div class="sidebar-block">
-            <div class="sb-title">Browse by category</div>
-            <ul class="cat-list" id="categoryList">
-                <li class="cat-item active" data-cat="">All titles <span class="count" id="countAll">–</span></li>
-            </ul>
-        </div>
-
-        <div class="sidebar-block">
-            <div class="sb-title">Catalog snapshot</div>
-            <div class="stat-mini">
-                <div class="stat-mini-row"><span class="v" id="statTotal">–</span><span class="l">total titles</span></div>
-                <div class="stat-mini-row"><span class="v" id="statAvailable">–</span><span class="l">available now</span></div>
-                <div class="stat-mini-row"><span class="v" id="statCategories">–</span><span class="l">categories</span></div>
+        </a>
+        <div class="topbar-right">
+            <div class="profile-chip">
+                <span class="avatar" id="avatarInitial">S</span>
+                <span class="who">
+                    <span class="name" id="welcomeName">Student</span>
+                    <span class="roll" id="welcomeRoll">—</span>
+                </span>
             </div>
+            <button class="logout-btn" id="logoutBtn" type="button">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M10.5 11.5L14 8l-3.5-3.5M14 8H6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Log out
+            </button>
         </div>
-    </aside>
+    </header>
 
-    <section class="dash-main">
-        <div class="dash-head">
-            <div>
-                <span class="eyebrow">Welcome back</span>
-                <h1 id="dashGreeting">Student</h1>
+    <main class="dash-wrap">
+        <aside class="sidebar">
+            <div class="sidebar-block profile-panel">
+                <div class="sb-title">Reader profile</div>
+                <div class="profile-box">
+                    <div class="avatar-large" id="profileInitial">S</div>
+                    <div>
+                        <h3 id="profileName">Student</h3>
+                        <p id="profileEmail">—</p>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="search-row">
-            <svg viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5.2" stroke="currentColor" stroke-width="1.4"/><path d="M11 11L14.5 14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-            <input type="text" id="searchInput" placeholder="Search by title, author, or category…">
-        </div>
+            <div class="sidebar-block">
+                <div class="sb-title">My library</div>
+                <div class="mini-stack">
+                    <div class="mini-stat">
+                        <span class="mini-value" id="statBorrowed">0</span>
+                        <small>Borrowed</small>
+                    </div>
+                    <div class="mini-stat">
+                        <span class="mini-value" id="statDueSoon">0</span>
+                        <small>Due soon</small>
+                    </div>
+                </div>
+                <ul class="loan-list" id="loanList"></ul>
+            </div>
 
-        <div class="chip-row" id="chipRow"></div>
+            <div class="sidebar-block">
+                <div class="sb-title">Browse by category</div>
+                <ul class="cat-list" id="categoryList">
+                    <li class="cat-item active" data-cat="">All titles <span class="count" id="countAll">–</span></li>
+                </ul>
+            </div>
 
-        <div class="results-count" id="resultsCount"></div>
+            <div class="sidebar-block">
+                <div class="sb-title">Catalog snapshot</div>
+                <div class="stat-mini">
+                    <div class="stat-mini-row"><span class="v" id="statTotal">–</span><span class="l">total titles</span></div>
+                    <div class="stat-mini-row"><span class="v" id="statAvailable">–</span><span class="l">available now</span></div>
+                    <div class="stat-mini-row"><span class="v" id="statCategories">–</span><span class="l">categories</span></div>
+                </div>
+            </div>
+        </aside>
 
-        <div class="catalog-grid" id="catalogGrid">
-            <div class="skeleton"></div>
-            <div class="skeleton"></div>
-            <div class="skeleton"></div>
-        </div>
-    </section>
-</main>
+        <section class="dash-main">
+            <div class="dash-head">
+                <div>
+                    <span class="eyebrow">Welcome back</span>
+                    <h1 id="dashGreeting">Student</h1>
+                </div>
+            </div>
 
-<script src="js/dashboard.js"></script>
+            <div class="overview-grid">
+                <div class="overview-card accent">
+                    <span class="overview-label">Available titles</span>
+                    <strong id="overviewAvailable">0</strong>
+                    <small>Ready to borrow</small>
+                </div>
+                <div class="overview-card">
+                    <span class="overview-label">Borrowed</span>
+                    <strong id="overviewBorrowed">0</strong>
+                    <small>Currently with you</small>
+                </div>
+                <div class="overview-card">
+                    <span class="overview-label">Categories</span>
+                    <strong id="overviewCategories">0</strong>
+                    <small>Study areas</small>
+                </div>
+            </div>
+
+            <div class="search-row">
+                <svg viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5.2" stroke="currentColor" stroke-width="1.4"/><path d="M11 11L14.5 14.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+                <input type="text" id="searchInput" placeholder="Search by title, author, or category…">
+            </div>
+
+            <div class="chip-row" id="chipRow"></div>
+
+            <div class="results-count" id="resultsCount"></div>
+
+            <div class="catalog-grid" id="catalogGrid">
+                <div class="skeleton"></div>
+                <div class="skeleton"></div>
+                <div class="skeleton"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/dashboard.js"></script>
 </body>
 </html>
